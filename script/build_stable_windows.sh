@@ -1,9 +1,12 @@
 #!/bin/bash
 
 export RUSTFLAGS="
-    -C relro-level=none
     -C code-model=small
     -C target-cpu=native
+    -C llvm-args=-fp-contract=off
+    -C llvm-args=-enable-misched
+    -C llvm-args=-enable-post-misched
+    -C llvm-args=-enable-dfa-jump-thread
     -C force-frame-pointers=no
     -C target-feature=+crt-static
     -C symbol-mangling-version=v0
