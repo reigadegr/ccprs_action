@@ -1,7 +1,7 @@
 #!/bin/bash
 
 export RUSTFLAGS="
-    -C relro-level=none
+    -C relro-level=full
     -C code-model=small
     -C linker-plugin-lto=no
     -C relocation-model=pic
@@ -20,4 +20,4 @@ export CARGO_TERM_COLOR=always
 
 export JEMALLOC_SYS_DISABLE_WARN_ERROR=1
 
-cargo +stable build --target "$1"
+cargo +stable build -r --target "$1"

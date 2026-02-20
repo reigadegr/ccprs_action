@@ -16,9 +16,12 @@ export RUSTFLAGS="
     -Z saturating-float-casts=yes
     -Z mir-enable-passes=+Inline
     -Z precise-enum-drop-elaboration=yes
-    -C relro-level=none
     -C code-model=small
     -C target-cpu=native
+    -C llvm-args=-fp-contract=off
+    -C llvm-args=-enable-misched
+    -C llvm-args=-enable-post-misched
+    -C llvm-args=-enable-dfa-jump-thread
     -C force-frame-pointers=no
     -C target-feature=+crt-static
     -C symbol-mangling-version=v0
@@ -41,4 +44,4 @@ export CARGO_TERM_COLOR=always
 
 export JEMALLOC_SYS_DISABLE_WARN_ERROR=1
 
-cargo +nightly build --target "$1" -- -Z trim-paths -Z build-std=core,alloc,std,panic_abort
+cargo +nightly build -r --target "$1" -- -Z trim-paths -Z build-std=core,alloc,std,panic_abort
