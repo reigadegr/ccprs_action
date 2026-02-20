@@ -163,6 +163,7 @@ jobs:
           if [ "$is_musl" = "true" ]; then
               sed -i 's/ build / zigbuild /g' "$script_file"
               sed -i 's/,--relax//g' "$script_file"
+              sed -i 's/--pack-dyn-relocs=relr,//g' "$script_file"
               sed -i '/--no-rosegment/d' "$script_file"
           fi
           
