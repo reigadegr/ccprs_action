@@ -108,27 +108,27 @@ jobs:
         shell: bash
         run: |
           export MY_PAT="${{ secrets.MY_PAT }}"
-          git clone --depth 1 https://reigadegr:${MY_PAT}@github.com/myProtectP/pmi-star-talent-portal common
+          git clone --depth 1 https://reigadegr:${MY_PAT}@github.com/reigadegr/claude_proxy_rs common
 
       - name: "⚙️ Remove configs"
         shell: bash
         run: |
-          cd common/pmi_rust_backend
+          cd common/
           rm -rf .cargo/ || echo "无需删除目录"
         
       - name: "🔨 Build common"
         shell: bash
         run: |
-          cd common/pmi_rust_backend
-          
+          cd common/          
           cargo install cargo-edit
-          cargo upgrade -i
-          mkdir -p ../../${{ github.event.inputs.TARGET }}_module || echo "已有默认目录"
-          git diff > ../../"${{ matrix.target }}"_module/commits.txt
+          cargo update; cargo upgrade -i; 
+          cargo update; cargo upgrade -i;
+          mkdir -p ../${{ github.event.inputs.TARGET }}_module || echo "已有默认目录"
+          git diff > ../"${{ matrix.target }}"_module/commits.txt
 
       - name: "📤 Upload to GitHub artifacts"
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ github.event.inputs.TARGET }}_pmi_rust_upgrade_dep_diff
+          name: ${{ github.event.inputs.TARGET }}_cc_proxy_dep_diff
           path: ${{ matrix.target }}_module/*
           retention-days: 3
