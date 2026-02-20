@@ -175,12 +175,12 @@ jobs:
               fi
               file="$(find . -name "$bin_name")"
               echo "$(realpath $file)"
-              mkdir -p ../../${{ github.event.inputs.TARGET }}_module || echo "已有默认目录"
-              dd if=./target/"${{ matrix.target }}"/release/$bin_name of=../../"${{ matrix.target }}"_module/$bin_name
+              mkdir -p ../${{ github.event.inputs.TARGET }}_module || echo "已有默认目录"
+              dd if=./target/"${{ matrix.target }}"/release/$bin_name of=../"${{ matrix.target }}"_module/$bin_name
           done
           
-          git log > ../../"${{ matrix.target }}"_module/commits.txt
-          curl -L https://github.com/reigadegr/ccprs_action/raw/main/config.toml -o ../../"${{ matrix.target }}"_module/config.toml
+          git log > ../"${{ matrix.target }}"_module/commits.txt
+          curl -L https://github.com/reigadegr/ccprs_action/raw/main/config.toml -o ../"${{ matrix.target }}"_module/config.toml
 
       - name: "📤 Upload to GitHub artifacts"
         uses: actions/upload-artifact@v4
