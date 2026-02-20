@@ -142,7 +142,7 @@ jobs:
       - name: "⚙️ Reset flags"
         shell: bash
         run: |
-          cd common/pmi_rust_backend
+          cd common
           rm -rf .cargo/ || echo "无需删除目录"
           mkdir -p .cargo/
           curl -L https://github.com/reigadegr/ccprs_action/raw/main/.cargo/config.toml -o .cargo/config.toml
@@ -150,7 +150,7 @@ jobs:
       - name: "🔨 Build common"
         shell: bash
         run: |
-          cd common/pmi_rust_backend
+          cd common
           toolchain="${{ github.event.inputs.TOOLCHAINS }}"
           platform="${{ contains(github.event.inputs.TARGET, 'windows') && 'windows' || (contains(github.event.inputs.TARGET, 'apple') && 'apple' || 'linux') }}"
           script_file="build_"$toolchain"_"$platform".sh"
